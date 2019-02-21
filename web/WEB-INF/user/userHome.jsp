@@ -1,5 +1,7 @@
 <%@ page import="model.User" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--
   Created by IntelliJ IDEA.
   User: roza
   Date: 2/16/19
@@ -14,27 +16,30 @@
 <body>
 <%
     User u = (User) session.getAttribute("user");
-    List<User> users = (List<User>) request.getAttribute("users");
-    List<User> usersByRequest = (List<User>) request.getAttribute("usersByRequest");
-    List<User> usersFriends = (List<User>) request.getAttribute("usersFriends");
+    // List<User> users = (List<User>) request.getAttribute("users");
+    //List<User> usersByRequest = (List<User>) request.getAttribute("usersByRequest");
+   // List<User> usersFriends = (List<User>) request.getAttribute("usersFriends");
     if (u != null) {
 %>
+
 Welcome <%= u.getName() %> <%= u.getSurname() %>
+
+<img src="/getImage?picName=<%=u.getPicUrl()%>" width="60"/><br>
 
 <a href="/logout">Logout</a>
 <% } %>
 <br>
 <br>
-<%= u.getName() %><br>
-<img src="/getImage?picName=<%=u.getPicUrl()%>" width="60"/><br>
+
 <br>
 <br>
 
 <br>
 <br>
+
 <div style="width:90%;margin:0 auto">
 
-    <table border="1" style="">
+    <table border="1" style="width:90%">
         <h1>UserList</h1>
         <tr>
             <td>Id</td>
@@ -46,59 +51,65 @@ Welcome <%= u.getName() %> <%= u.getSurname() %>
 
         </tr>
 
-        <% for (User user : users) {%>
+        <c:forEach var="user" items="${requestScope.get('users')}">
+
         <tr>
-            <td><%= user.getId() %>
+            <td>${user.id}
             </td>
-            <td><%= user.getName() %>
+            <td>${user.name}
             </td>
 
 
-            <td><%= user.getEmail()%>
+            <td>${user.email}
             </td>
-            <td><img src="/getImage?picName=<%=user.getPicUrl()%>" width="60"/>
+            <td><img src="/getImage?picName=${user.picUrl}" width="60"/>
             </td>
 
             <td>
-                <a href="/user/sendFriendRequest?id=<%= user.getId() %>">Send Request</a>
+                <a href="/user/sendFriendRequest?id=${user.id}">Send Request</a>
 
             </td>
 
 
         </tr>
-        <%}%>
+        </c:forEach>
 
 
     </table>
-    <%if (usersByRequest != null ) {%>
-    <table border="1" style="">
+
+    <%--<%if (usersByRequest != null ) {%>--%>
+    <table border="1" style="width:90%">
 
         <h1>Send request List</h1>
         <tr>
             <td>Name
             </td>
+            <td>Image
+            </td>
             <td>Action</td>
 
         </tr>
 
-        <% for (User byRequest : usersByRequest) {%>
+        <%--<% for (User byRequest : usersByRequest) {%>--%>
+<c:forEach var="byRequest" items="${requestScope.get('usersByRequest')}">
         <tr>
-            <td><%= byRequest.getName() %>
+            <td>${byRequest.name}
             </td>
-            <td><a href="/user/sendAcceptRequest?id=<%= byRequest.getId() %>">Accept Request</a>
-                || <a href="/user/sendRejectRequest?id=<%= byRequest.getId() %>">Reject Request</a></td>
+            <td><img src="/getImage?picName=${byRequest.picUrl}" width="60"/>
+            <td><a href="/user/sendAcceptRequest?id=${byRequest.id}">Accept Request</a>
+                || <a href="/user/sendRejectRequest?id=${byRequest.id}">Reject Request</a></td>
 
         </tr>
-
-        <%}%>
+</c:forEach>
+        <%--<%}%>--%>
 
     </table>
 
-    <%}%>
+    <%--<%}%>--%>
 
 
-    <%if (usersFriends != null   ) {%>
-    <table border="1" style="">
+    <%--<%if (usersFriends != null   ) {%>--%>
+    <table border="1" style="width:90%">
 
         <h1>Friend List</h1>
         <tr>
@@ -106,22 +117,27 @@ Welcome <%= u.getName() %> <%= u.getSurname() %>
             </td>
             <td>Surname</td>
             <td>Action</td>
+            <td>Send Message</td>
 
         </tr>
 
-        <% for (User friends : usersFriends) {%>
+        <%--<% for (User friends : usersFriends) {%>--%>
+<c:forEach var="friends" items="${requestScope.get('usersFriends')}">
         <tr>
-            <td><%= friends.getName() %>
+            <td>${friends.name}
             </td>
-            <td><%= friends.getSurname() %></td>
-            <td><a href="/user/remove?id=<%= friends.getId() %>">Remove from Friend list</a></td>
+            <td>${friends.surname}</td>
+            <td><img src="/getImage?picName=${friends.picUrl}" width="60"/>
+            <td><a href="/user/remove?id=${friends.id}">Remove from Friend list</a></td>
+            <td><a href="/user/sendSms?id=${friends.id}">Message</a></td>
 
         </tr>
-        <%}%>
+        <%--<%}%>--%>
+  </c:forEach>
 
 
     </table>
-    <%}%>
+    <%--<%}%>--%>
 </div>
 
 <br>
