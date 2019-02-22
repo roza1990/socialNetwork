@@ -1,9 +1,11 @@
 package manager;
 
 import db.DBConnectionProvider;
+import model.Message;
 import model.Request;
 import model.User;
 import model.UserType;
+import util.DateUtil;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -57,6 +59,24 @@ public class UserManager {
         }
     }
 
+
+    public void userMessage(long userId,long friendId) {
+        try {
+            String query = "INSERT INTO user_request(`user_id`,`friend_id`,`request`) " +
+                    "VALUES(?,?,?);";
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setLong(1, userId);
+            statement.setLong(2, friendId);
+            statement.setString(3, String.valueOf(Request.SEND));
+
+            System.out.println("executing the following statement ->" + query);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public User getUserById(int id) {
         String query = "SELECT * FROM user WHERE id = " + id;
         return getUserFromDB(query);
@@ -94,6 +114,11 @@ public class UserManager {
         }
         return null;
     }
+
+
+
+
+
 
     public List<User> getUserFriends(long id) {
         String query = "SELECT * FROM `user`,`user_request` WHERE user.`id`=`user_request`.`friend_id` AND `user_request`.`request`='ACCEPT' AND `user_request`.`user_id`="+id;
@@ -212,4 +237,7 @@ public class UserManager {
         user.setPicUrl(resultSet.getString(7));
         return user;
     }
+
+
+
 }

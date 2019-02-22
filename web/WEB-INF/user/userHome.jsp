@@ -17,11 +17,11 @@
     User u = (User) session.getAttribute("user");
     // List<User> users = (List<User>) request.getAttribute("users");
     //List<User> usersByRequest = (List<User>) request.getAttribute("usersByRequest");
-   // List<User> usersFriends = (List<User>) request.getAttribute("usersFriends");
+    // List<User> usersFriends = (List<User>) request.getAttribute("usersFriends");
     if (u != null) {
 %>
 
-Welcome <%= u.getName() %> <%= u.getSurname() %>
+Welcome <%= u.getName() %> <%= u.getSurname() %><br>
 
 <img src="/getImage?picName=<%=u.getPicUrl()%>" width="60"/><br>
 
@@ -52,25 +52,25 @@ Welcome <%= u.getName() %> <%= u.getSurname() %>
 
         <c:forEach var="user" items="${requestScope.get('users')}">
 
-        <tr>
-            <td>${user.id}
-            </td>
-            <td>${user.name}
-            </td>
+            <tr>
+                <td>${user.id}
+                </td>
+                <td>${user.name}
+                </td>
 
 
-            <td>${user.email}
-            </td>
-            <td><img src="/getImage?picName=${user.picUrl}" width="60"/>
-            </td>
+                <td>${user.email}
+                </td>
+                <td><img src="/getImage?picName=${user.picUrl}" width="60"/>
+                </td>
 
-            <td>
-                <a href="/user/sendFriendRequest?id=${user.id}">Send Request</a>
+                <td>
+                    <a href="/user/sendFriendRequest?id=${user.id}">Send Request</a>
 
-            </td>
+                </td>
 
 
-        </tr>
+            </tr>
         </c:forEach>
 
 
@@ -90,16 +90,16 @@ Welcome <%= u.getName() %> <%= u.getSurname() %>
         </tr>
 
         <%--<% for (User byRequest : usersByRequest) {%>--%>
-<c:forEach var="byRequest" items="${requestScope.get('usersByRequest')}">
-        <tr>
-            <td>${byRequest.name}
-            </td>
-            <td><img src="/getImage?picName=${byRequest.picUrl}" width="60"/>
-            <td><a href="/user/sendAcceptRequest?id=${byRequest.id}">Accept Request</a>
-                || <a href="/user/sendRejectRequest?id=${byRequest.id}">Reject Request</a></td>
+        <c:forEach var="byRequest" items="${requestScope.get('usersByRequest')}">
+            <tr>
+                <td>${byRequest.name}
+                </td>
+                <td><img src="/getImage?picName=${byRequest.picUrl}" width="60"/>
+                <td><a href="/user/sendAcceptRequest?id=${byRequest.id}">Accept Request</a>
+                    || <a href="/user/sendRejectRequest?id=${byRequest.id}">Reject Request</a></td>
 
-        </tr>
-</c:forEach>
+            </tr>
+        </c:forEach>
         <%--<%}%>--%>
 
     </table>
@@ -116,23 +116,24 @@ Welcome <%= u.getName() %> <%= u.getSurname() %>
             </td>
             <td>Surname</td>
             <td>Action</td>
+            <td>Remove</td>
             <td>Send Message</td>
 
         </tr>
 
         <%--<% for (User friends : usersFriends) {%>--%>
-<c:forEach var="friends" items="${requestScope.get('usersFriends')}">
-        <tr>
-            <td>${friends.name}
-            </td>
-            <td>${friends.surname}</td>
-            <td><img src="/getImage?picName=${friends.picUrl}" width="60"/>
-            <td><a href="/user/remove?id=${friends.id}">Remove from Friend list</a></td>
-            <td><a href="/user/sendSms?id=${friends.id}">Message</a></td>
+        <c:forEach var="friends" items="${requestScope.get('usersFriends')}">
+            <tr>
+                <td>${friends.name}
+                </td>
+                <td>${friends.surname}</td>
+                <td><img src="/getImage?picName=${friends.picUrl}" width="60"/>
+                <td><a href="/user/remove?id=${friends.id}">Remove from Friend list</a></td>
+                <td><a href="/user/sendSms?id=${friends.id}">Message</a></td>
 
-        </tr>
-        <%--<%}%>--%>
-  </c:forEach>
+            </tr>
+            <%--<%}%>--%>
+        </c:forEach>
 
 
     </table>
