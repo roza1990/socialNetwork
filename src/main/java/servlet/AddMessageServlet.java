@@ -24,14 +24,12 @@ import java.util.List;
 public class AddMessageServlet extends HttpServlet {
     private MessageManager messageManager = new MessageManager();
     private UserManager userManager = new UserManager();
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         User user = (User) req.getSession().getAttribute("user");
-         //String friendId = req.getParameter("id");
-
+        User user = (User) req.getSession().getAttribute("user");
+        //String friendId = req.getParameter("id");
 //        String sms = req.getParameter("sms");
-
-
 //        message.setUserId(user.getId());
 //        message.setUserName(user.getName());
 //        message.setFriendId(Integer.parseInt(friendId));
@@ -69,12 +67,11 @@ public class AddMessageServlet extends HttpServlet {
                         } else {
                             if (item.getFieldName().equals("sms")) {
                                 message.setSms(item.getString());
-                            }
-                            else if(item.getFieldName().equals("friendId")){
+                            } else if (item.getFieldName().equals("friendId")) {
                                 message.setFriendId(Integer.parseInt(item.getString()));
 
 
-                            }else if(item.getFieldName().equals("friendName")){
+                            } else if (item.getFieldName().equals("friendName")) {
                                 message.setFriendName(item.getString());
 
                             }

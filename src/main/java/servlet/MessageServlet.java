@@ -13,12 +13,13 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/user/sendSms")
 public class MessageServlet extends HttpServlet {
-MessageManager messageManager=new MessageManager();
+    MessageManager messageManager = new MessageManager();
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
-        String smsId=req.getParameter("id");
-        req.setAttribute("usersMessage", messageManager.getUsersMessage(user.getId(),Integer.parseInt(smsId)));
+        String smsId = req.getParameter("id");
+        req.setAttribute("usersMessage", messageManager.getUsersMessage(user.getId(), Integer.parseInt(smsId)));
         req.setAttribute("userSms", messageManager.getFriendById(Integer.parseInt(smsId)));
         req.getRequestDispatcher("/WEB-INF/user/message.jsp").forward(req, resp);
 

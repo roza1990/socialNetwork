@@ -31,9 +31,9 @@
     <input  type="hidden" name="friendName" value="<c:out value="${requestScope.userSms.name}"/>"><br>
 
 
-    <input type="text" name="sms">
-    <%--<textarea rows="4" cols="50" name="sms">--%>
-<%--Enter text here...</textarea>--%>
+    <%--<input type="text" name="sms">--%>
+    <textarea rows="4" cols="50" name="sms">
+Enter text here...</textarea>
     <br>
     <input type="file" name="picture">
     <br>

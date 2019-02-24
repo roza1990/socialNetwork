@@ -13,12 +13,13 @@ import java.util.List;
 public class MessageManager {
 
     private Connection connection;
+
     public MessageManager() {
         connection = DBConnectionProvider.getInstance().getConnection();
     }
 
     public List<Message> getUsersMessage(long userId, int friendId) {
-        String query = "SELECT * FROM `userMessage` WHERE userId IN("+userId+","+friendId+ ") AND `friendId` IN(" +userId+","+friendId+");";
+        String query = "SELECT * FROM `userMessage` WHERE userId IN(" + userId + "," + friendId + ") AND `friendId` IN(" + userId + "," + friendId + ");";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -69,7 +70,7 @@ public class MessageManager {
 
 
     public User getFriendById(int fId) {
-        String query = "SELECT * FROM user WHERE user.id = " + fId ;
+        String query = "SELECT * FROM user WHERE user.id = " + fId;
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -92,8 +93,6 @@ public class MessageManager {
         return null;
 
     }
-
-
 
 
 }
