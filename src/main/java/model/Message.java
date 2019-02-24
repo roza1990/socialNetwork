@@ -17,5 +17,6 @@ public class Message {
     private String friendName;
     private String sms;
     private Date smsDate;
+    private String file;
 
 }

@@ -18,15 +18,18 @@
     // List<User> users = (List<User>) request.getAttribute("users");
     //List<User> usersByRequest = (List<User>) request.getAttribute("usersByRequest");
     // List<User> usersFriends = (List<User>) request.getAttribute("usersFriends");
-    if (u != null) {
+    //if (u != null) {
 %>
 
-Welcome <%= u.getName() %> <%= u.getSurname() %><br>
+Welcome <c:out value="${sessionScope.user.name}"/><br>
+<c:out value="${sessionScope.user.surname}"/>
 
-<img src="/getImage?picName=<%=u.getPicUrl()%>" width="60"/><br>
+<%--Welcome <%= u.getName() %> <%= u.getSurname() %><br>--%>
+
+<%--<img src="/getImage?picName=<%=u.getPicUrl()%>" width="60"/><br>--%>
 
 <a href="/logout">Logout</a>
-<% } %>
+<% //} %>
 <br>
 <br>
 

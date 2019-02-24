@@ -17,18 +17,26 @@
         ${message.userName}    ${message.smsDate}
     </h4>
     <h3>
-              ${message.sms}
+              ${message.sms} <br>
+                  <c:if test="${message.file != null && message.file ne ''}">
+                  <img src="/getImage?picName=${message.file}" width="60"/>
+
+                  </c:if>
     </h3>
 
+</c:forEach>
+<form action="/user/message" method="post" enctype="multipart/form-data">
 
-<form action="/user/message" method="post">
+    <input  type="hidden" name="friendId" value="<c:out value="${requestScope.userSms.id}"/>"><br>
+    <input  type="hidden" name="friendName" value="<c:out value="${requestScope.userSms.name}"/>"><br>
 
-    <input  type="hidden" name="friendId" value="${message.userId}"><br>
-    </c:forEach>
+
     <input type="text" name="sms">
     <%--<textarea rows="4" cols="50" name="sms">--%>
 <%--Enter text here...</textarea>--%>
-    <br><br>
+    <br>
+    <input type="file" name="picture">
+    <br>
     <input type="submit" value="Message"><br><br>
     <a href="/user/userHome">Go back</a>
 </form>
